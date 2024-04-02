@@ -1,8 +1,14 @@
+"use client";
+
+import ThemeContext from "@/context/themeContext";
 import Link from "next/link";
+import { useContext } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { MdDarkMode } from "react-icons/md";
+import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
 
 const Header = () => {
+  const { darkTheme, setDarkTheme } = useContext(ThemeContext);
+
   return (
     <header className="py-10 px-4 text-center w-full">
       {/* Navbar */}
@@ -21,7 +27,23 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <MdDarkMode className="cursor-pointer" />
+              {darkTheme ? (
+                <MdOutlineLightMode
+                  className="cursor-pointer"
+                  onClick={() => {
+                    setDarkTheme(false);
+                    localStorage.removeItem("theme");
+                  }}
+                />
+              ) : (
+                <MdDarkMode
+                  className="cursor-pointer"
+                  onClick={() => {
+                    setDarkTheme(true);
+                    localStorage.setItem("theme", "dark");
+                  }}
+                />
+              )}
             </li>
           </ul>
         </div>
