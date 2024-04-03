@@ -76,8 +76,6 @@ const Header = () => {
           </li>
         </ul>
       </div>
-
-      <h1>Golden Coast</h1>
     </header>
   );
 };
