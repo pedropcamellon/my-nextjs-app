@@ -1,5 +1,5 @@
 import "./globals.css";
-// import { NextAuthProvider } from "@/components/AuthProvider/AuthProvider";
+import { NextAuthProvider } from "@/components/AuthProvider/AuthProvider";
 import { Poppins } from "next/font/google";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
@@ -35,16 +35,16 @@ export default function RootLayout({
       </head>
 
       <body className={poppins.className}>
-        {/* <NextAuthProvider> */}
-        <ThemeProvider>
-          <Toast />
-          <main className="font-normal">
-            <Header />
-            {children}
-            <Footer />
-          </main>
-        </ThemeProvider>
-        {/* </NextAuthProvider> */}
+        <NextAuthProvider>
+          <ThemeProvider>
+            <Toast />
+            <main className="font-normal">
+              <Header />
+              {children}
+              <Footer />
+            </main>
+          </ThemeProvider>
+        </NextAuthProvider>
       </body>
     </html>
   );

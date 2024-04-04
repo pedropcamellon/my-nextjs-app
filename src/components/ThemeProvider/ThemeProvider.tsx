@@ -1,15 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import ThemeContext from "@/context/themeContext";
 
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const themeFromStorage: boolean = localStorage?.getItem("hotel-theme")
-    ? JSON.parse(localStorage.getItem("hotel-theme")!)
-    : false;
+  // Load theme from local storage
+  let themeFromStorage = useRef<boolean>(false);
 
-  const [darkTheme, setDarkTheme] = useState<boolean>(themeFromStorage);
+  // Wait for the page to load on the client side before setting the theme
+  useEffect(() => {
+    themeFromStorage.current = localStorage?.getItem("hotel-theme")
+      ? JSON.parse(localStorage.getItem("hotel-theme")!)
+      : false;
+  }, []);
+
+  const [darkTheme, setDarkTheme] = useState<boolean>(themeFromStorage.current);
   const [renderComponent, setRenderComponent] = useState(false);
 
   useEffect(() => {
