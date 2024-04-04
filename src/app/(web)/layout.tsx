@@ -1,8 +1,10 @@
 import "./globals.css";
+// import { NextAuthProvider } from "@/components/AuthProvider/AuthProvider";
 import { Poppins } from "next/font/google";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import ThemeProvider from "@/components/ThemeProvider/ThemeProvider";
+import Toast from "@/components/Toast/Toast";
 import type { Metadata } from "next";
 
 const poppins = Poppins({
@@ -24,14 +26,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          crossOrigin="anonymous"
+        />
+      </head>
+
       <body className={poppins.className}>
+        {/* <NextAuthProvider> */}
         <ThemeProvider>
-          <main className="'font-normal flex min-h-screen flex-col items-center justify-between p-24">
+          <Toast />
+          <main className="font-normal">
             <Header />
             {children}
             <Footer />
           </main>
         </ThemeProvider>
+        {/* </NextAuthProvider> */}
       </body>
     </html>
   );
