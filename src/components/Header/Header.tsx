@@ -2,19 +2,36 @@
 
 import { FaUserCircle } from "react-icons/fa";
 import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
-import { useContext } from "react";
-import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useContext, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeContext from "@/context/themeContext";
+import toast from "react-hot-toast";
 
 const Header = () => {
   const { darkTheme, setDarkTheme } = useContext(ThemeContext);
 
+  const { data: session } = useSession();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session) router.push("/");
+  }, [router, session]);
+
   const pathname = usePathname();
 
-  const { data: session } = useSession();
+  const loginHandler = async () => {
+    try {
+      await signIn();
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+      toast.error("Something wen't wrong");
+    }
+  };
 
   return (
     <header className="py-10 px-4 container mx-auto text-xl flex flex-wrap md:flex-nowrap items-center justify-between">
@@ -69,9 +86,15 @@ const Header = () => {
             // User is not logged in
             // Show if not on the auth page
             pathname !== "/auth" && (
-              <button type="button">
-                <Link href="/auth">Register</Link>
-              </button>
+              <>
+                <button type="button" onClick={loginHandler}>
+                  <Link href="/auth">Login</Link>
+                </button>
+
+                <button type="button">
+                  <Link href="/auth">Register</Link>
+                </button>
+              </>
             )
           )
         }
