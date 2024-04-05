@@ -21,6 +21,23 @@ export async function getRooms(): Promise<Room[]> {
 }
 
 /**
+ * Retrieves a room object based on the provided slug.
+ *
+ * @param {string} slug - The slug of the room to retrieve.
+ * @return {Promise<Room>} The room object retrieved.
+ */
+export async function getRoom(slug: string): Promise<Room> {
+  const result = await sanityClient.fetch<Room>(
+    queries.getRoom,
+    { slug },
+    { cache: "no-cache" }
+  );
+
+  return result;
+}
+
+
+/**
  * Retrieves user data based on the provided userId.
  *
  * @param {string} userId - The unique identifier of the user.
