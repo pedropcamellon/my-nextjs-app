@@ -33,9 +33,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
   if (isLoading) return <LoadingSpinner />;
 
   // Validate API response
-  if (error) throw new Error("Cannot fetch data");
-
-  if (room === undefined && !isLoading) {
+  if (error || (!isLoading && room === undefined)) {
     throw new Error("Cannot fetch data");
   }
 
