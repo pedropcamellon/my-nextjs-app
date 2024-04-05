@@ -7,6 +7,20 @@ import axios from "axios";
 import sanityClient from "./sanity";
 
 /**
+ * Retrieves a list of rooms by querying the sanityClient.
+ *
+ * @return {Room[]} The list of rooms retrieved from the query.
+ */
+export async function getRooms(): Promise<Room[]> {
+  const result = await sanityClient.fetch<Room[]>(
+    queries.getRoomsQuery,
+    {},
+    { cache: "no-cache" }
+  );
+  return result;
+}
+
+/**
  * Retrieves user data based on the provided userId.
  *
  * @param {string} userId - The unique identifier of the user.

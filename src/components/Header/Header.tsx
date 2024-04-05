@@ -17,10 +17,6 @@ const Header = () => {
 
   const router = useRouter();
 
-  useEffect(() => {
-    if (session) router.push("/");
-  }, [router, session]);
-
   const pathname = usePathname();
 
   const loginHandler = async () => {
@@ -46,13 +42,13 @@ const Header = () => {
       </div>
 
       <ul className="flex gap-8 justify-center items-center mt-4">
-        {/* <li className="hover:-translate-y-2 duration-500 transition-all">
+        <li className="hover:-translate-y-2 duration-500 transition-all">
           <Link href="/">Home</Link>
-        </li> */}
-        {/* TODO - Improve rooms page */}
-        {/* <li className="hover:-translate-y-2 duration-500 transition-all">
+        </li>
+        <li className="hover:-translate-y-2 duration-500 transition-all">
           <Link href="/rooms">Rooms</Link>
-        </li> */}
+        </li>
+
         {/* TODO - Add contact page */}
         {/* <li className="hover:-translate-y-2 duration-500 transition-all">
           <Link href="/">Contact</Link>
