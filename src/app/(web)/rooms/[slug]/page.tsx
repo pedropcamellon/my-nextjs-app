@@ -10,7 +10,7 @@ import { useState } from "react";
 import axios from "axios";
 import BookRoomCta from "@/components/BookRoomCta/BookRoomCta";
 import HotelPhotoGallery from "@/components/HotelPhotoGallery/HotelPhotoGallery";
-import LoadingSpinner from "@/app/(web)/loading";
+import LoadingSpinner from "../../loading";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 
