@@ -11,7 +11,6 @@ import axios from "axios";
 import BookRoomCta from "@/components/BookRoomCta/BookRoomCta";
 import HotelPhotoGallery from "@/components/HotelPhotoGallery/HotelPhotoGallery";
 import LoadingSpinner from "../../loading";
-// import RoomReview from "@/components/RoomReview/RoomReview";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 
@@ -119,13 +118,30 @@ const RoomDetails = (props: { params: { slug: string } }) => {
     return noOfDays;
   };
 
-  return room ? (
+  // N/A
+  if (!room) {
+    return (
+      <div className="container mx-auto mt-20">
+        <div className="md:grid md:grid-cols-12 gap-10 px-3">
+          <div className="md:col-span-8 md:w-full">
+            <div className="shadow dark:shadow-white rounded-lg p-6">
+              <h2 className="font-bold text-left text-lg md:text-2xl">
+                No data available for this room
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
     <div>
       <HotelPhotoGallery photos={room.images} />
 
       <div className="container mx-auto mt-20">
         <div className="md:grid md:grid-cols-12 gap-10 px-3">
-          <div className="md:col-span-8 md:w-full">
+          <div className="sm:col-span-12 lg:col-span-8 md:w-full">
             <div>
               {/* Room name */}
               <h2 className="font-bold text-2xl text-left mb-11">
@@ -189,19 +205,10 @@ const RoomDetails = (props: { params: { slug: string } }) => {
                   </div>
                 </div>
               </div>
-
-              {/* <div className="shadow dark:shadow-white rounded-lg p-6">
-                <div className="items-center mb-4">
-                  <p className="md:text-lg font-semibold">Customer Reviews</p>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <RoomReview roomId={room._id} />
-                </div>
-              </div> */}
             </div>
           </div>
 
-          <div className="rounded-xl shadow-lg dark:shadow dark:shadow-white sticky top-10 h-fit overflow-auto">
+          <div className="md:col-span-12 lg:col-span-4 rounded-xl shadow-lg dark:shadow dark:shadow-white sticky top-10 h-fit overflow-auto">
             <BookRoomCta
               discount={room.discount}
               price={room.price}
@@ -218,18 +225,6 @@ const RoomDetails = (props: { params: { slug: string } }) => {
               isBooked={room.isBooked}
               handleBookNowClick={handleBookNowClick}
             />
-          </div>
-        </div>
-      </div>
-    </div>
-  ) : (
-    <div className="container mx-auto mt-20">
-      <div className="md:grid md:grid-cols-12 gap-10 px-3">
-        <div className="md:col-span-8 md:w-full">
-          <div className="shadow dark:shadow-white rounded-lg p-6">
-            <h2 className="font-bold text-left text-lg md:text-2xl">
-              No data available for this room
-            </h2>
           </div>
         </div>
       </div>
